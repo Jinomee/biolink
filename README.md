@@ -1,5 +1,7 @@
 # Discord-Inspired Profile Page
 
+[中文文档](README.zh-CN.md) | English
+
 A customizable, interactive profile page inspired by Discord's UI design. Features include a particle background, custom cursor, music player, dynamic text effects, and social media links.
 
 ## Features
