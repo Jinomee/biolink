@@ -4,21 +4,54 @@ document.addEventListener('DOMContentLoaded', function() {
     const usernameElement = document.getElementById('profile-username');
     usernameElement.textContent = profileConfig.profile.username;
 
-    // Typewriter effect for Discord ID
-    const discordId = document.getElementById('typewriter');
-    const text = profileConfig.profile.discordId;
+    // Typewriter effect for Nickname
+    const nickname = document.getElementById('typewriter');
+    const nicknames = profileConfig.profile.nicknames;
+    let currentNicknameIndex = 0;
     let index = 0;
-
-    function type() {
-        if (index < text.length) {
-            discordId.textContent = text.slice(0, index + 1);
-            index++;
-            setTimeout(type, 100);
+    let isDeleting = false;
+    let typingSpeed = 100;
+    let pauseEnd = 0;
+    
+    function typeWriter() {
+        const now = Date.now();
+        
+        // Wait during pause time
+        if (now < pauseEnd) {
+            setTimeout(typeWriter, pauseEnd - now);
+            return;
         }
+        
+        const currentText = nicknames[currentNicknameIndex];
+        
+        if (isDeleting) {
+            // Deleting text
+            nickname.textContent = currentText.substring(0, index);
+            index--;
+            typingSpeed = 50; // Faster when deleting
+            
+            if (index === 0) {
+                isDeleting = false;
+                currentNicknameIndex = (currentNicknameIndex + 1) % nicknames.length;
+                typingSpeed = 100; // Reset typing speed
+                pauseEnd = now + 500; // Pause before typing next nickname
+            }
+        } else {
+            // Typing text
+            nickname.textContent = currentText.substring(0, index);
+            index++;
+            
+            if (index > currentText.length) {
+                isDeleting = true;
+                pauseEnd = now + 1500; // Pause at full text
+            }
+        }
+        
+        setTimeout(typeWriter, typingSpeed);
     }
     
     // Start the typewriter effect
-    setTimeout(type, 1000);
+    setTimeout(typeWriter, 1000);
     
     // Generate location texts from config
     const locationWrapper = document.getElementById('location-wrapper');

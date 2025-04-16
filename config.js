@@ -1,13 +1,14 @@
 /**
- * Discord Profile Page Configuration
- * Edit this file to customize your profile page
+ * Bio Page Configuration
+ * Edit this file to customize your personal bio page
  */
 
 const config = {
+  // Page title is now generated from username + ' の 主页'
   // Profile Information
   profile: {
     username: "顾槿淮", // Your display name
-    discordId: "顾槿淮", // Your Discord ID or username
+    nicknames: ["顾槿淮", "真名有景", "Jinotech"], // Your nicknames that cycle
     locations: [
       "理想国",
       "Utopia",
@@ -98,12 +99,25 @@ const config = {
     }
   },
 
+  // Hitokoto Quote Settings
+  hitokoto: {
+    enable: true,
+    params: {
+      c: 'a', // Category: a - Anime, b - Comic, c - Game, d - Novel, e - Original, f - Internet, g - Other
+      min_length: 10, // Minimum length of quote
+      max_length: 100 // Maximum length of quote
+    }
+  },
+
   // Advanced Settings
   advanced: {
     disableRightClick: true, // Prevent right-click on the page
     customCursor: true, // Use custom cursor
   }
 };
+
+// Make config accessible as profileConfig for compatibility
+const profileConfig = config;
 
 // Don't modify below this line
 if (typeof module !== 'undefined' && module.exports) {

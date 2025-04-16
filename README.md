@@ -1,8 +1,8 @@
-# Discord-Inspired Profile Page
+# Customizable Bio Page
 
 [中文文档](README.zh-CN.md) | English
 
-A customizable, interactive profile page inspired by Discord's UI design. Features include a particle background, custom cursor, music player, dynamic text effects, and social media links.
+A customizable, interactive personal bio page with a clean, modern UI design. Features include a particle background, custom cursor, music player, dynamic text effects, and social media links.
 
 ## Features
 
@@ -13,6 +13,7 @@ A customizable, interactive profile page inspired by Discord's UI design. Featur
 - 🌟 **Glow Effects**: Discord-inspired text glow effects
 - 🖱️ **Custom Cursor**: Unique cursor experience
 - 🌙 **Welcome Message**: Time-based greeting message
+- 💬 **Hitokoto Quotes**: Random quotes from the hitokoto.cn API
 
 ## Quick Start
 
@@ -31,16 +32,25 @@ A customizable, interactive profile page inspired by Discord's UI design. Featur
 4. **Deploy**:
    Upload the files to your web hosting service or GitHub Pages.
 
-## Customization
+## Configuration
 
-All customizable elements are centralized in the `config.js` file for easy editing:
+All customizable elements are in the `config.js` file. Edit this file to personalize your bio page.
+
+### Page Title
+
+The page title is automatically generated using your username in the format: `username + ' の 主页'`. 
+For example, if your username is "YourName", the page title will be "YourName の 主页".
 
 ### Profile Information
 
 ```javascript
 profile: {
-  username: "YourName", // Your display name
-  discordId: "YourDiscordID", // Your Discord ID or username
+  username: "YourName", // Display name
+  nicknames: [
+    "Nickname1", 
+    "Nickname2", 
+    "Nickname3"
+  ], // Nicknames that cycle with typewriter effect
   locations: [
     "Location1",
     "Location2",
@@ -89,6 +99,19 @@ theme: {
     // Other color variables
   },
   // Glow effects settings
+}
+```
+
+### Hitokoto Quotes
+
+```javascript
+hitokoto: {
+  enable: true,
+  params: {
+    c: 'a', // Category: a - Anime, b - Comic, c - Game, d - Novel, e - Original, f - Internet, g - Other
+    min_length: 10, // Minimum length of quote
+    max_length: 100 // Maximum length of quote
+  }
 }
 ```
 

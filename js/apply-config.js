@@ -3,6 +3,7 @@
  * This script should be loaded after config.js but before other scripts
  */
 document.addEventListener('DOMContentLoaded', function() {
+    // Title is now set directly in the HTML
     // Apply theme colors from config
     const root = document.documentElement;
     const colors = profileConfig.theme.colors;
@@ -31,5 +32,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Set page title based on username
-    document.title = profileConfig.profile.username + ' - Discord Profile';
+    document.title = profileConfig.profile.username + ' の 主页';
 });
