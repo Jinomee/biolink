@@ -87,21 +87,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Start the location text transition with a delay
     setTimeout(cycleLocationText, 3000);
-    
-    // Generate social links from config
-    const socialLinksContainer = document.getElementById('social-links');
-    
-    // Create social link elements
-    profileConfig.socialLinks.forEach(link => {
-        const socialLink = document.createElement('a');
-        socialLink.href = link.url;
-        socialLink.className = `social-icon ${link.name}`;
-        socialLink.target = '_blank';
-        
-        const icon = document.createElement('i');
-        icon.className = link.icon;
-        
-        socialLink.appendChild(icon);
-        socialLinksContainer.appendChild(socialLink);
-    });
 });

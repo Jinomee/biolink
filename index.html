@@ -3,32 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="cursor.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>顾槿淮 の 主页</title>
+    <link rel="stylesheet" href="styles.css?v=1.1.0">
+    <link rel="stylesheet" href="cursor.css?v=1.1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css?v=1.1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js?v=1.1.0"></script>
     <!-- Configuration file - edit this to customize your profile -->
-    <script src="config.js"></script>
+    <script src="config.js?v=1.1.0"></script>
     <!-- Apply configuration settings -->
-    <script src="js/apply-config.js"></script>
+    <script src="js/apply-config.js?v=1.1.0"></script>
     <!-- Core scripts -->
-    <script src="js/music-player.js"></script>
-    <script src="js/text-effects.js"></script>
-    <script src="js/particles-config.js"></script>
-    <script src="js/disable-right-click.js"></script>
-    <script src="js/welcome-message.js"></script>
-    <script src="js/hitokoto.js"></script>
+    <script src="js/music-player.js?v=1.1.0"></script>
+    <script src="js/text-effects.js?v=1.1.0"></script>
+    <script src="js/particles-config.js?v=1.1.0"></script>
+    <script src="js/disable-right-click.js?v=1.1.0"></script>
+    <script src="js/welcome-message.js?v=1.1.0"></script>
+    <script src="js/hitokoto.js?v=1.1.0"></script>
 </head>
 <body>
     <div id="particles-js"></div>
     <div id="welcome-popup" class="welcome-popup">
         <div class="welcome-message">欢迎来到我的主页，<span id="time-greeting"></span>好</div>
     </div>
-    <div id="loading-screen" class="loading-screen">
+    <div id="loading-screen" class="loading-screen" onclick="
+        document.getElementById('loading-screen').style.display='none';
+        document.getElementById('main-content').style.display='block';
+        var audio = document.getElementById('audio-player');
+        if(audio) {
+            audio.play().catch(function(e) { 
+                console.log('Audio play prevented:', e);
+            });
+        }">
         <div class="loading-content">
             <div class="click-text">[ click ]</div>
         </div>
@@ -77,15 +88,11 @@
         
         <div class="music-player-container">
             <div class="music-player">
-                <audio id="audio-player" src="music/bgm.mp3" preload="metadata" autoplay></audio>
+                <audio id="audio-player" preload="none"></audio>
                 <div class="song-info">
                     <div class="song-details">
                         <div class="song-title-container">
                             <div id="song-title" class="song-title">Song Title</div>
-                            <div class="comic-tooltip">
-                                <div class="comic-tooltip-content"></div>
-                                <div class="comic-tooltip-arrow"></div>
-                            </div>
                         </div>
                         <div class="song-progress">
                             <div id="time-elapsed" class="time-elapsed">0:00</div>
@@ -105,6 +112,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>

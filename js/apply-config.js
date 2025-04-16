@@ -1,9 +1,32 @@
 /**
  * Apply configuration settings to the page
- * This script should be loaded after config.js but before other scripts
  */
+
+// Improved resource error handling
+window.addEventListener('error', function(e) {
+  if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK' || e.target.tagName === 'IMG' || e.target.tagName === 'AUDIO')) {
+    console.error("Resource failed to load:", e.target.src || e.target.href || "unknown resource");
+    if (e.target.id === 'audio-player') {
+      console.log("Audio player failed to load, but continuing anyway");
+    }
+  }
+}, true);
+
+// Add debug mode
+const urlParams = new URLSearchParams(window.location.search);
+const debug = urlParams.get('debug') === 'true';
+if (debug) {
+  console.log("Debug mode enabled");
+  console.log("Config loaded:", profileConfig);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Title is now set directly in the HTML
+    // Set username
+    document.getElementById('profile-username').textContent = profileConfig.profile.username;
+    
+    // Set page title
+    document.title = profileConfig.profile.username + ' の 主页';
+    
     // Apply theme colors from config
     const root = document.documentElement;
     const colors = profileConfig.theme.colors;
@@ -31,6 +54,33 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('custom-cursor-enabled');
     }
     
-    // Set page title based on username
-    document.title = profileConfig.profile.username + ' の 主页';
+    // Set location text rotation
+    const locationWrapper = document.getElementById('location-wrapper');
+    
+    profileConfig.profile.locations.forEach((location, index) => {
+        const locationText = document.createElement('div');
+        locationText.className = 'location-text';
+        locationText.textContent = location;
+        locationWrapper.appendChild(locationText);
+    });
+    
+    // Add social links
+    const socialLinksContainer = document.getElementById('social-links');
+    
+    // Clear existing links to prevent duplication
+    socialLinksContainer.innerHTML = '';
+    
+    profileConfig.socialLinks.forEach(link => {
+        const socialLink = document.createElement('a');
+        socialLink.href = link.url;
+        socialLink.target = '_blank';
+        socialLink.className = `social-icon ${link.type}`;
+        socialLink.title = link.title;
+        
+        const icon = document.createElement('i');
+        icon.className = link.icon;
+        
+        socialLink.appendChild(icon);
+        socialLinksContainer.appendChild(socialLink);
+    });
 });
