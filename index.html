@@ -32,8 +32,11 @@
         <div class="welcome-message">欢迎来到我的主页，<span id="time-greeting"></span>好</div>
     </div>
     <div id="loading-screen" class="loading-screen" onclick="
-        document.getElementById('loading-screen').style.display='none';
-        document.getElementById('main-content').style.display='block';
+        this.classList.add('exit');
+        setTimeout(() => {
+            document.getElementById('loading-screen').style.display='none';
+            document.getElementById('main-content').style.display='block';
+        }, 900);
         var audio = document.getElementById('audio-player');
         if(audio) {
             audio.play().catch(function(e) { 
@@ -41,6 +44,11 @@
             });
         }">
         <div class="loading-content">
+            <div class="loading-animation">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
             <div class="click-text">[ click ]</div>
         </div>
     </div>
