@@ -31,7 +31,7 @@ A modern, interactive profile page built with React, featuring a Discord-inspire
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/discord-profile-page.git
+   git clone https://github.com/Jinomee/biolink.git
    cd discord-profile-page
    ```
 
