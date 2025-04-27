@@ -1,0 +1,666 @@
+:root {
+    --discord-dark: #1e1f22;
+    --discord-darker: #18191c;
+    --discord-light-text: #ffffff;
+    --discord-secondary-text: #b5bac1;
+    --discord-blue: #5865f2;
+    --discord-purple: #9b59b6;
+    --glow-color: rgba(88, 101, 242, 0.8);
+    --secondary-glow-color: rgba(155, 89, 182, 0.7);
+    --username-glow: 0 0 10px rgba(88, 101, 242, 0.6), 0 0 20px rgba(88, 101, 242, 0.4), 0 0 30px rgba(88, 101, 242, 0.2), 0 0 40px rgba(88, 101, 242, 0.1);
+    --discord-id-glow: 0 0 8px rgba(155, 89, 182, 0.5), 0 0 15px rgba(155, 89, 182, 0.3), 0 0 20px rgba(155, 89, 182, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+body {
+    background-color: var(--discord-dark);
+    color: var(--discord-light-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: auto;
+}
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1e2124;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    cursor: pointer;
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+}
+
+.loading-screen.exit {
+    opacity: 0;
+    transform: scale(1.1) translateY(-20px);
+    pointer-events: none;
+}
+
+.loading-content {
+    text-align: center;
+    color: #ffffff;
+    font-size: 1.5rem;
+    animation: float 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    will-change: transform;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.loading-animation {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.circle {
+    width: 15px;
+    height: 15px;
+    background-color: var(--discord-blue);
+    border-radius: 50%;
+    animation: bounce 1.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    box-shadow: 0 0 10px var(--discord-blue);
+    will-change: transform;
+}
+
+.circle:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.circle:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.circle:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.click-text {
+    font-size: 2rem;
+    margin-top: 20px;
+    opacity: 0.8;
+    animation: blink 1.5s infinite, pulse-glow 3s infinite alternate;
+    text-shadow: var(--username-glow);
+    letter-spacing: 2px;
+    color: var(--discord-light-text);
+    font-weight: 500;
+    position: relative;
+    display: inline-block;
+}
+
+.click-text::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--discord-blue), transparent);
+    animation: scan 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    will-change: transform;
+}
+
+@keyframes scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    will-change: opacity, transform;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-card {
+    background-color: rgba(24, 25, 28, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    width: 100%;
+    max-width: 600px;
+    animation: cardReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+    transform: scale(0.95);
+    will-change: opacity, transform;
+}
+
+@keyframes cardReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.profile-header {
+    padding: 20px;
+    width: 100%;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.left-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 150px;
+    width: 200px;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 15px;
+    color: var(--discord-secondary-text);
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.location-wrapper {
+    position: relative;
+    min-width: 80px;
+    height: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.location-text {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    text-shadow: none;
+    opacity: 0;
+    transform: translateY(20px) translateY(-50%);
+    transition: opacity 1s ease, transform 1s ease;
+    line-height: 1;
+}
+
+.location-text.active {
+    opacity: 1;
+    transform: translateY(-50%);
+}
+
+.location-text.inactive {
+    opacity: 0;
+    transform: translateY(-20px) translateY(-50%);
+}
+
+.profile-info {
+    padding: 10px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.username {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: var(--username-glow);
+    animation: pulse-glow 3s infinite alternate;
+    letter-spacing: 0.01em;
+}
+
+.badges {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    text-shadow: 0 0 12px var(--secondary-glow-color), 0 0 20px var(--secondary-glow-color);
+}
+
+.nickname-container {
+    position: relative;
+    margin-top: 5px;
+    height: 1.2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nickname {
+    font-size: 1rem;
+    color: var(--discord-secondary-text);
+    text-shadow: var(--discord-id-glow);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    display: inline-block;
+}
+
+.cursor {
+    display: inline-block;
+    color: var(--discord-secondary-text);
+    font-size: 1rem;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes pulse-glow {
+    0% {
+        text-shadow: var(--username-glow);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(88, 101, 242, 0.7), 0 0 25px rgba(88, 101, 242, 0.5), 0 0 35px rgba(88, 101, 242, 0.3), 0 0 45px rgba(88, 101, 242, 0.2);
+    }
+    100% {
+        text-shadow: var(--username-glow);
+    }
+}
+
+.hitokoto-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 20px;
+    padding: 15px 40px 15px 15px;
+    background-color: rgba(30, 31, 34, 0.5);
+    border-radius: 8px;
+    position: relative;
+    border-left: 3px solid var(--discord-blue);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hitokoto-quote {
+    font-style: italic;
+    color: var(--discord-light-text);
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.quote-icon {
+    color: var(--discord-blue);
+    opacity: 0.7;
+    font-size: 0.8rem;
+    margin: 0 5px;
+}
+
+.hitokoto-source {
+    text-align: right;
+    color: var(--discord-secondary-text);
+    font-size: 0.9rem;
+}
+
+.refresh-hitokoto {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--discord-secondary-text);
+    font-size: 0.8rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.refresh-hitokoto:hover {
+    color: var(--discord-blue);
+    opacity: 1;
+    transform: rotate(180deg);
+    background-color: rgba(88, 101, 242, 0.1);
+    box-shadow: 0 0 8px rgba(88, 101, 242, 0.3);
+}
+
+.refreshing {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    justify-content: center;
+    width: 100%;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--discord-light-text);
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease, text-shadow 0.5s ease;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    margin: 0 10px;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    background-color: rgba(88, 101, 242, 0.2);
+    color: var(--discord-blue);
+    text-shadow: 0 0 8px rgba(88, 101, 242, 0.7), 0 0 12px rgba(88, 101, 242, 0.5), 0 0 16px rgba(88, 101, 242, 0.3);
+}
+
+.music-player-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto 0;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.6s;
+    will-change: opacity, transform;
+}
+
+.music-player {
+    padding: 20px;
+}
+
+.song-info {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.song-details {
+    flex: 1;
+    width: 100%;
+}
+
+.song-title-container {
+    position: relative;
+    display: inline-block;
+}
+
+.song-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: var(--discord-light-text);
+    position: relative;
+    z-index: 1;
+}
+
+.comic-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(24, 25, 28, 0.9);
+    border: 1px solid rgba(88, 101, 242, 0.5);
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateX(-50%) translateY(10px);
+    z-index: 1000;
+    width: max-content;
+    max-width: 200px;
+    backdrop-filter: blur(5px);
+    margin-bottom: 10px;
+}
+
+.comic-tooltip-content {
+    color: var(--discord-light-text);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.comic-tooltip-arrow {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 14px;
+    height: 14px;
+    background-color: rgba(24, 25, 28, 0.9);
+    border-right: 1px solid rgba(88, 101, 242, 0.5);
+    border-bottom: 1px solid rgba(88, 101, 242, 0.5);
+}
+
+.song-title-container:hover .comic-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.song-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background-color: var(--discord-light-text);
+    border-radius: 2px;
+    transition: width 0.1s ease;
+}
+
+.time-elapsed, .time-total {
+    color: var(--discord-secondary-text);
+    font-size: 0.8rem;
+}
+
+.player-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 5px 0;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: var(--discord-light-text);
+    font-size: 1.2rem;
+    transition: transform 0.2s ease, color 0.2s ease;
+    padding: 10px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.control-btn:hover {
+    color: var(--discord-blue);
+    transform: scale(1.1);
+    background-color: rgba(88, 101, 242, 0.1);
+    box-shadow: 0 0 8px rgba(88, 101, 242, 0.3);
+}
+
+.control-btn.play {
+    color: var(--discord-light-text);
+}
+
+.control-btn.pause {
+    color: var(--discord-blue);
+}
+
+.control-btn.shuffle {
+    margin-left: 5px;
+}
+
+.control-btn.shuffle.active {
+    color: var(--discord-blue);
+    transform: scale(1.2);
+}
+
+.welcome-popup {
+    position: fixed;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(24, 25, 28, 0.8);
+    border: 1px solid rgba(88, 101, 242, 0.5);
+    border-radius: 16px;
+    padding: 12px 20px;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 3s ease, top 1.5s ease;
+}
+
+.welcome-popup.glow-animation {
+    animation: popup-glow 3s infinite alternate;
+}
+
+.welcome-message {
+    color: var(--discord-light-text);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+@keyframes popup-fade-in {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes popup-glow {
+    0% {
+        box-shadow: 0 0 15px rgba(88, 101, 242, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(88, 101, 242, 0.5), 0 0 30px rgba(88, 101, 242, 0.2);
+    }
+}
+
+.ripple-effect {
+    position: fixed;
+    border-radius: 50%;
+    background-color: rgba(88, 101, 242, 0.3);
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    margin-top: -20px;
+    pointer-events: none;
+    animation: ripple 0.5s ease-out;
+    z-index: 9999;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}

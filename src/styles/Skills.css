@@ -1,0 +1,184 @@
+.skills-container {
+  background-color: rgba(24, 25, 28, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  width: 100%;
+  max-width: 600px;
+  animation: cardReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+  transform: scale(0.95);
+  will-change: opacity, transform;
+}
+
+.skills-title {
+  font-size: 1.2rem;
+  color: var(--discord-light-text);
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.skill-name {
+  font-size: 0.9rem;
+  color: var(--discord-light-text);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--discord-secondary-text);
+  font-size: 1rem;
+  width: 20px;
+}
+
+.skill-icon svg {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.skill-item:hover .skill-icon svg {
+  transform: scale(1.2);
+  color: var(--discord-light-text);
+}
+
+.skill-item:hover .next-icon {
+  transform: scale(1.2);
+  color: var(--discord-light-text);
+}
+
+.next-icon {
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.skill-level {
+  font-size: 0.8rem;
+  color: var(--discord-secondary-text);
+}
+
+.skill-bar {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  transition: height 0.3s ease;
+}
+
+.skill-item:hover .skill-bar {
+  height: 10px;
+}
+
+.skill-item:hover .skill-progress {
+  animation: progressPulse 1s ease-in-out infinite alternate;
+}
+
+.skill-progress {
+  height: 100%;
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  transition: width 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+.skill-progress.animate {
+  animation: progressPulse 2s ease-in-out infinite alternate;
+}
+
+.skill-item:hover .skill-progress {
+  animation: progressPulse 1s ease-in-out infinite alternate !important;
+}
+
+@keyframes progressPulse {
+  0% {
+    opacity: 0.85;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Skill-specific colors */
+.react {
+  background: linear-gradient(90deg, #61dafb, #00b7ff);
+  box-shadow: 0 0 5px rgba(97, 218, 251, 0.5);
+}
+
+.html {
+  background: linear-gradient(90deg, #e44d26, #f16529);
+  box-shadow: 0 0 5px rgba(228, 77, 38, 0.5);
+}
+
+.css {
+  background: linear-gradient(90deg, #264de4, #2965f1);
+  box-shadow: 0 0 5px rgba(38, 77, 228, 0.5);
+}
+
+.javascript {
+  background: linear-gradient(90deg, #f0db4f, #f7df1e);
+  box-shadow: 0 0 5px rgba(240, 219, 79, 0.5);
+}
+
+.express {
+  background: linear-gradient(90deg, #353535, #444444);
+  box-shadow: 0 0 5px rgba(53, 53, 53, 0.5);
+}
+
+.nextjs {
+  background: linear-gradient(90deg, #000000, #333333);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.python {
+  background: linear-gradient(90deg, #306998, #ffd43b);
+  box-shadow: 0 0 5px rgba(48, 105, 152, 0.5);
+}
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .skills-container {
+    padding: 15px;
+  }
+  
+  .skills-title {
+    font-size: 1.1rem;
+  }
+} 

@@ -1,166 +1,106 @@
-# Customizable Bio Page
+# Discord-Style Profile Page
 
-[中文文档](README.zh-CN.md) | English
-
-A customizable, interactive personal bio page with a clean, modern UI design. Features include a particle background, custom cursor, music player, dynamic text effects, and social media links.
+A modern, interactive profile page built with React, featuring a Discord-inspired design. This project is a React implementation of a Discord-style profile page, complete with animated particles, typewriter effects, music player, and more.
 
 ## Features
 
-- 💫 **Interactive Particle Background**: Dynamic particles that respond to mouse movements
-- 🎵 **Music Player**: Customizable playlist with play/pause, previous/next, and shuffle controls
-- ✨ **Text Effects**: Typewriter animation and rotating location texts
-- 🔗 **Social Links**: Easily configurable social media icons with hover effects
-- 🌟 **Glow Effects**: Discord-inspired text glow effects
-- 🖱️ **Custom Cursor**: Unique cursor experience
-- 🌙 **Welcome Message**: Time-based greeting message
-- 💬 **Hitokoto Quotes**: Random quotes from the hitokoto.cn API
+- **Discord-inspired UI**: Clean, modern interface inspired by Discord's dark theme
+- **Interactive Particles Background**: Dynamic particles that react to user interactions
+- **Music Player**: Built-in audio player with play/pause, next/previous, and shuffle functionality
+- **Typewriter Effect**: Animated text typing for nicknames
+- **Hitokoto Quotes**: Integration with Hitokoto API for dynamic quotes
+- **Responsive Design**: Adapts to different screen sizes
+- **Customizable Configuration**: Easy to customize through a central config file
 
-## Quick Start
+## Technologies
 
-1. **Clone the repository**:
-   ```bash
+- React with TypeScript
+- CSS3 with animations and transitions
+- Font Awesome for icons
+- Particles.js for background effect
+- Modern ES6+ JavaScript
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (version 14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```
    git clone https://github.com/yourusername/discord-profile-page.git
    cd discord-profile-page
    ```
 
-2. **Edit the configuration file**:
-   Open `config.js` and customize your profile information, social links, music tracks, and other settings.
+2. Install dependencies:
+   ```
+   npm install
+   ```
 
-3. **Add your music**:
-   Place your music files in the `music/` directory and update the tracks in `config.js`.
+3. Run the development server:
+   ```
+   npm start
+   ```
 
-4. **Deploy**:
-   Upload the files to your web hosting service or GitHub Pages.
+4. Build for production:
+   ```
+   npm run build
+   ```
 
 ## Configuration
 
-All customizable elements are in the `config.js` file. Edit this file to personalize your bio page.
+All profile settings can be configured in `src/config/profileConfig.ts`. This includes:
 
-### Page Title
+- Profile information (username, nicknames, location)
+- Social links
+- Music tracks
+- Visual theme settings
+- Particles background settings
+- And more!
 
-The page title is automatically generated using your username in the format: `username + ' の 主页'`. 
-For example, if your username is "YourName", the page title will be "YourName の 主页".
+## Project Structure
 
-### Profile Information
-
-```javascript
-profile: {
-  username: "YourName", // Display name
-  nicknames: [
-    "Nickname1", 
-    "Nickname2", 
-    "Nickname3"
-  ], // Nicknames that cycle with typewriter effect
-  locations: [
-    "Location1",
-    "Location2",
-    // Add more locations as needed
-  ]
-}
+```
+discord-profile-page/
+├── public/
+│   ├── music/          # Music files
+│   └── index.html      # HTML template
+├── src/
+│   ├── components/     # React components
+│   │   ├── ProfileCard.tsx
+│   │   ├── MusicPlayer.tsx
+│   │   └── ... 
+│   ├── config/         # Configuration files
+│   ├── hooks/          # Custom React hooks
+│   ├── styles/         # CSS styles
+│   └── App.tsx         # Main application component
+└── package.json        # Project dependencies
 ```
 
-### Social Links
+## Customization
 
-```javascript
+### Adding Music
+
+1. Add your music files to the `public/music` directory
+2. Update the `musicPlayer.tracks` array in `src/config/profileConfig.ts` with your new tracks
+
+### Adding Social Links
+
+Add or modify social links in the `socialLinks` array in `src/config/profileConfig.ts`:
+
+```typescript
 socialLinks: [
   {
     name: "github",
     url: "https://github.com/yourusername",
     icon: "fab fa-github"
   },
-  // Add more social links as needed
+  // Add more links as needed
 ]
 ```
-
-The `icon` property uses [Font Awesome](https://fontawesome.com/icons) classes.
-
-### Music Player
-
-```javascript
-musicPlayer: {
-  initialVolume: 0.15, // 0.0 to 1.0
-  tracks: [
-    { 
-      src: "music/track1.mp3", 
-      title: "Track Title 1" 
-    },
-    // Add more tracks as needed
-  ]
-}
-```
-
-### Theme Colors
-
-```javascript
-theme: {
-  colors: {
-    discordDark: "#1e1f22",
-    discordBlue: "#5865f2",
-    // Other color variables
-  },
-  // Glow effects settings
-}
-```
-
-### Hitokoto Quotes
-
-```javascript
-hitokoto: {
-  enable: true,
-  params: {
-    c: 'a', // Category: a - Anime, b - Comic, c - Game, d - Novel, e - Original, f - Internet, g - Other
-    min_length: 10, // Minimum length of quote
-    max_length: 100 // Maximum length of quote
-  }
-}
-```
-
-## Advanced Configuration
-
-### Particles Background
-
-Basic particle settings can be configured in `config.js`:
-
-```javascript
-particles: {
-  enable: true,
-  density: 80,
-  color: "#5865F2"
-}
-```
-
-For more advanced customization, edit `js/particles-config.js`.
-
-### Custom Cursor
-
-To replace the cursor image:
-
-1. Replace `cursor.svg` with your own image
-2. Ensure it has a transparent background
-3. Keep it small (recommended 16x16px or 32x32px)
-
-## Deployment
-
-### GitHub Pages
-
-1. Push your repository to GitHub
-2. Go to repository Settings > Pages
-3. Select your main branch as the source
-4. Your site will be published at `https://yourusername.github.io/discord-profile-page/`
-
-### Netlify
-
-1. Create an account on [Netlify](https://www.netlify.com/)
-2. Drag and drop your project folder to the Netlify dashboard
-3. Your site will be deployed with a Netlify subdomain
-
-## Browser Compatibility
-
-Tested and working on:
-- Chrome 90+
-- Firefox 88+
-- Edge 90+
-- Safari 14+
 
 ## License
 
@@ -168,15 +108,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgements
 
-- [Particles.js](https://vincentgarreau.com/particles.js/) for the particle background
-- [Font Awesome](https://fontawesome.com/) for the icons
-- Discord for the design inspiration
-2. No server or additional dependencies required.
-
-## Customization
-
-You can customize this page by:
-- Changing the profile information in the HTML
-- Modifying the colors in the CSS `:root` variables
-- Replacing placeholder images with actual images
-- Adding additional social media links as needed
+- Original design inspired by Discord's user interface
+- Particles effect powered by [particles.js](https://vincentgarreau.com/particles.js/)
+- Quotes provided by [Hitokoto](https://hitokoto.cn/)
+- Font Awesome for the beautiful icons
