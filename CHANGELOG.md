@@ -1,4 +1,4 @@
-# Discord Profile Page - Changelog
+# Profile Page - Changelog
 
 ## v2.0.0 (React Migration)
 
